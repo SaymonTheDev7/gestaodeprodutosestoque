@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Definindo o charset para UTF-8 e configuração de viewport para dispositivos móveis -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planilha de Produtos</title>
+    <!-- Importando o Tailwind CSS via CDN para estilização rápida -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-800 min-h-screen p-8 flex items-center justify-center relative">
 
+    <!-- Container principal da planilha de produtos -->
     <div class="max-w-6xl w-full bg-white p-8 shadow-xl rounded-xl border border-gray-600">
         <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">📋 Planilha de Produtos</h2>
 
+        <!-- Botão para adicionar um novo produto, posicionado no canto superior direito -->
         <div class="flex justify-end mb-4">
             <button id="add-product-btn" class="bg-green-700 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-green-800 transition">
                 <!-- Ícone de Adição (usando Heroicons) -->
@@ -20,35 +24,24 @@
             </button>
         </div>
 
+        <!-- Tabela para exibir os produtos -->
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-gray-900 border-collapse">
                 <thead class="bg-gray-700 text-white uppercase text-sm">
                     <tr>
-                        <th class="px-4 py-3 text-center">Nome do Curso</th>
-                        <th class="px-4 py-3 text-center">Materiais Necessários</th>
-                        <th class="px-4 py-3 text-center">Quantidades</th>
-                        <th class="px-4 py-3 text-center">Conferido</th>
-                        <th class="px-4 py-3 text-center">Produtos</th>
-                        <th class="px-4 py-3 text-center">Reposição</th>
-                        <th class="px-4 py-3 text-center">Qtd. Reposição</th>
-                        <th class="px-4 py-3 text-center">Ações</th>
+                        <!-- Cabeçalhos da tabela, cada célula contém uma categoria do produto -->
+                        <td class="px-4 py-3 text-center">Nome do Curso</td>
+                        <td class="px-4 py-3 text-center">Materiais Necessários</td>
+                        <td class="px-4 py-3 text-center">Quantidades</td>
+                        <td class="px-4 py-3 text-center">Conferido</td>
+                        <td class="px-4 py-3 text-center">Produtos</td>
+                        <td class="px-4 py-3 text-center">Reposição</td>
+                        <td class="px-4 py-3 text-center">Qtd. Reposição</td>
+                        <td class="px-4 py-3 text-center">Ações</td>
                     </tr>
                 </thead>
                 <tbody id="tabela-produtos" class="divide-y divide-gray-600">
-                    <tr>
-                        <td class="px-4 py-3 text-center">Curso Exemplo</td>
-                        <td class="px-4 py-3 text-center">Material Exemplo</td>
-                        <td class="px-4 py-3 text-center">10</td>
-                        <td class="px-4 py-3 text-center">Sim</td>
-                        <td class="px-4 py-3 text-center">Produto Exemplo</td>
-                        <td class="px-4 py-3 text-center">Não</td>
-                        <td class="px-4 py-3 text-center">
-                            <input type="text" class="w-16 text-center border border-gray-500 rounded-md" placeholder="Qtd. Reposição" />
-                        </td>
-                        <td class="px-4 py-3 text-center">
-                            <button class="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-800 remove-btn">Remover</button>
-                        </td>
-                    </tr>
+                    <!-- Os produtos serão dinamicamente adicionados aqui -->
                 </tbody>
             </table>
         </div>
@@ -58,11 +51,13 @@
     <div id="add-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center">
         <div class="bg-white p-6 rounded-xl shadow-xl max-w-md w-full animate-fade-in">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">Adicionar Novo Produto</h3>
+            <!-- Formulário de adição de produto -->
             <input type="text" id="curso" placeholder="Nome do Curso" class="w-full p-2 mb-2 border border-gray-500 rounded-md" autocomplete="off">
             <input type="text" id="material" placeholder="Material Necessário" class="w-full p-2 mb-2 border border-gray-500 rounded-md" autocomplete="off">
             <input type="number" id="quantidade" placeholder="Quantidade" class="w-full p-2 mb-2 border border-gray-500 rounded-md" min="1" autocomplete="off">
             <input type="text" id="produto" placeholder="Produto" class="w-full p-2 mb-4 border border-gray-500 rounded-md" autocomplete="off">
 
+            <!-- Botões de ação dentro do modal -->
             <div class="flex justify-between">
                 <button class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600" onclick="fecharAddModal()">Cancelar</button>
                 <button class="bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800" onclick="salvarProduto()">Adicionar</button>
@@ -75,6 +70,7 @@
         <div class="bg-white p-6 rounded-xl shadow-xl max-w-sm w-full animate-fade-in">
             <h3 class="text-xl font-semibold text-gray-900 mb-4">Tem certeza?</h3>
             <p id="confirm-text" class="mb-4 text-gray-700">Deseja realmente remover este produto?</p>
+            <!-- Botões de confirmação de remoção -->
             <div class="flex justify-between">
                 <button class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600" onclick="fecharConfirmModal()">Cancelar</button>
                 <button id="confirm-remove-btn" class="bg-red-700 text-white px-4 py-2 rounded-md hover:bg-red-800">Remover</button>
@@ -82,22 +78,10 @@
         </div>
     </div>
 
-    <!-- Notificações (Toasts) -->
+    <!-- Contêiner para as notificações (Toasts) -->
     <div id="toast-container" class="fixed top-5 right-5 space-y-2 z-50"></div>
 
-    <script>
-        // Função para remover o item da tabela
-        document.addEventListener("DOMContentLoaded", function() {
-            const removeButtons = document.querySelectorAll('.remove-btn');
-            removeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    row.remove();
-                });
-            });
-        });
-    </script>
-
+    <!-- Inclusão do arquivo de script.js que contém a lógica JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
